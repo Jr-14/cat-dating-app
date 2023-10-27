@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: catsapp
+      POSTGRES_USER: catsapp
+      POSTGRES_DB: catsapp_local
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+volumes:
+  pgdata:
